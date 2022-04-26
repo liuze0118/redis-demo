@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lz.redis.demo.dao.UserDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="resultMap" type="com.lz.redis.demo.vo.User">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="nick_name" property="nickName" />
+        <result column="password" property="password" />
+        <result column="phone_number" property="phoneNumber" />
+    </resultMap>
+    <insert id="addUser" parameterType="com.lz.redis.demo.vo.User">
+        insert into user values(#{id},#{name},#{nickName},#{password},#{phoneNumber})
+    </insert>
+    <update id="updateUser" parameterType="com.lz.redis.demo.vo.User">
+        update user
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="nickName != null and nickName != ''">
+                nick_name = #{nickName}
+            </if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+    <delete id="deleteUserById" parameterType="int">
+        delete from user where id = #{id}
+    </delete>
+    <select id="getUserById" parameterType="integer" resultMap="resultMap">
+        select * from user where Id = #{id}
+    </select>
+    <select id="selectUserByCondition" resultType="com.lz.redis.demo.vo.User"
+            parameterType="com.lz.redis.demo.vo.User">
+        select * from user
+        <where>
+            <if test="name != null and name != ''">
+                name = #{name}
+            </if>
+            <if test="nickName != null and nickName != ''">
+                and nick_name = #{nickName}
+            </if>
+        </where>
+    </select>
+
+</mapper>

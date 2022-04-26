@@ -1,0 +1,47 @@
+server:
+  port: 8080
+
+xxl:
+  job:
+    accessToken:
+    admin:
+      addresses: http://127.0.0.1:8090/xxl-job-admin
+    executor:
+      appname: xxl-job-executor-sample
+      address: ''
+      ip: ''
+      port: 8099
+      logpath: /logs/xxl-job/jobhandler
+      logretentiondays: 3
+
+spring:
+  application:
+    name: redis-test
+  redis:
+    cluster:
+      nodes:
+        - 47.94.237.238:7001
+        - 47.94.237.238:7002
+        - 47.94.237.238:7003
+        - 47.94.237.238:7004
+        - 47.94.237.238:7005
+        - 47.94.237.238:7006
+    password: liuze0118
+  #  redis:
+#    cluster:
+#      nodes: 47.94.237.238:7001,47.94.237.238:7002,47.94.237.238:7003,47.94.237.238:7004,47.94.237.238:7005,47.94.237.238:7006
+#    password: liuze0118
+  elasticsearch:
+    rest:
+      uris: http://47.94.237.238:9200
+  datasource:
+    dynamic:
+      primary: master
+      datasource:
+        master:
+          url: jdbc:mysql://47.94.237.238:3306/my_dev?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          username: root
+          password: liuze0118
+  aop:
+    proxy-target-class: false

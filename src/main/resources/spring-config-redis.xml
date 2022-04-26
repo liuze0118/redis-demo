@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+<!--    <bean id="redisPoolConfig" class="com.jdd.martech.export.redis.JedisPoolExportConfig">-->
+<!--        <property name="blockWhenExhausted" value="true"/>-->
+<!--        <property name="maxWaitMillis" value="500" />-->
+<!--        <property name="maxTotal" value="150"/>-->
+<!--        <property name="maxIdle" value="50"/>-->
+<!--        <property name="minIdle" value="30"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="jedisClient" class="com.jdd.martech.export.redis.JedisClusterCacheWrapper">-->
+<!--        <constructor-arg name="nodes" value="${redis.cluster.nodes}"/>-->
+<!--        <constructor-arg name="connectionTimeout" value="3000"/>-->
+<!--        <constructor-arg name="soTimeout" value="3000"/>-->
+<!--        <constructor-arg name="maxAttempts" value="1000"/>-->
+<!--        <constructor-arg name="password" value="${redis.auth}"/>-->
+<!--        <constructor-arg name="poolConfig" ref="redisPoolConfig"/>-->
+<!--    </bean>-->
+
+    <bean id="genPoolConfig" class="org.apache.commons.pool2.impl.GenericObjectPoolConfig">
+        <property name="maxTotal" value="150"/>
+        <property name="maxIdle" value="50"/>
+        <property name="minIdle" value="30"/>
+    </bean>
+<!--    <bean id="pipelineClient" class="org.example.util.R2MJedisCluster">-->
+<!--        <constructor-arg name="nodes" value="${redis.cluster.nodes}"/>-->
+<!--        <constructor-arg name="connectionTimeout" value="3000"/>-->
+<!--        <constructor-arg name="soTimeout" value="3000"/>-->
+<!--        <constructor-arg name="maxAttempts" value="1000"/>-->
+<!--        <constructor-arg name="password" value="${redis.auth}"/>-->
+<!--        <constructor-arg name="poolConfig" ref="genPoolConfig"/>-->
+<!--    </bean>-->
+</beans>
