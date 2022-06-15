@@ -1,5 +1,6 @@
 package com.lz.redis.demo.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lz.redis.demo.vo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -7,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 @Mapper
-public interface UserDao {
+public interface UserDao  extends BaseMapper<User> {
     User getUserById(@Param("id") int id);
 
     List<User> selectUserByCondition(User user);

@@ -45,3 +45,10 @@ spring:
           password: liuze0118
   aop:
     proxy-target-class: false
+
+license:
+  subject: jiangkanyouyi
+  publicAlias: publicCert
+  storePass: liu123
+  licensePath: C:\AppData\license\license.lic
+  publicKeysStorePath: C:\AppData\license\publicCerts.store
