@@ -83,7 +83,7 @@ public class EsController {
 
     @GetMapping("/getB/{brandName}/{num}/{size}")
     public String getDocByBrandName(@PathVariable String brandName,@PathVariable int num, @PathVariable int size){
-        Page<Good> goodsByName = esGoodRepository.findByBrandName(brandName,PageRequest.of(num,size).withSort(Sort.Direction.DESC,"spuId"));
+        Page<Good> goodsByName = esGoodRepository.findByBrandName(brandName,PageRequest.of(num,size,Sort.Direction.DESC,"spuId"));
         return null;
     }
 

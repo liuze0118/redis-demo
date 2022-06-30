@@ -17,6 +17,14 @@ xxl:
 spring:
   application:
     name: redis-test
+  cloud:
+    nacos:
+      username: nacos
+      password: O9MeXU0SExEx5jp0KE4U
+      discovery:
+        server-addr: 119.3.216.80:8848,121.36.35.198:8848,119.3.214.140:8848
+        namespace: 5d2b1d22-a8d1-4005-9a84-8818228d2b7f
+        watch-delay: 15
   redis:
     cluster:
       nodes:
@@ -55,3 +63,13 @@ license:
   storePass: liu123
   licensePath: C:\AppData\license\license.lic
   publicKeysStorePath: C:\AppData\license\publicCerts.store
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: self-registry
+      base-path: /actuator
+  endpoint:
+    self-registry:
+      enable: true

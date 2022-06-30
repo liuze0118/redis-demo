@@ -43,7 +43,8 @@ public class StreamOperate {
         good2.setId(1L);
         good2.setName("1231");
         goodList.add(good2);
-        Map<Long, Good> collect = goodList.stream().collect(Collectors.toMap(Good::getId, g -> g, (k1, k2) -> {return k2;}));
+        //Map<Long, Good> collect1 = goodList.stream().collect(Collectors.toMap(Good::getId, g -> g));
+        Map<Long, Good> collect = goodList.stream().collect(Collectors.toMap(Good::getId, g -> g, (k1, k2) -> {return k1;}));
         System.out.println(collect);
     }
 
@@ -110,10 +111,10 @@ public class StreamOperate {
     }
 
     public static void main(String[] args) {
-        testJSON();
+//        testJSON();
 //        removeIf();
 //        allMatch();
-//        toMapFunction();
+        toMapFunction();
 //        createList();
 //        try {
 //            userOptional();

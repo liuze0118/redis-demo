@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseServiceImpl<User> implements UserService  {
     @Autowired
     private RedisService redisService;
 
@@ -52,4 +52,14 @@ public class UserServiceImpl implements UserService {
     public int noTransactional(User user) throws Exception {
         return updateUser(user);
     }
+
+    public void subMethod(){
+        System.out.println("--------i am sub ---------");
+        super.spurMethod();
+    }
+
+//    @Override
+//    public void spurMethod() {
+//        super.spurMethod();
+//    }
 }
