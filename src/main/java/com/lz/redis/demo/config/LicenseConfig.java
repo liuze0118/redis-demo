@@ -40,8 +40,8 @@ public class LicenseConfig {
 
     @Bean(initMethod = "installLicense", destroyMethod = "unInstallLicense")
     public LicenseVerify licenseVerify() {
-        License.createLicenseCert();
-        return new LicenseVerify(subject, publicAlias, storePass, licensePath, publicKeysStorePath);
+        LicenseVerify licenseVerify = new LicenseVerify(subject, publicAlias, storePass, licensePath, publicKeysStorePath);
+        return licenseVerify;
     }
 
 }

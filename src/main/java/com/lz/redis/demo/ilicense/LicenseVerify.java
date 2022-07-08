@@ -3,6 +3,9 @@ package com.lz.redis.demo.ilicense;
 import de.schlichtherle.license.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -67,14 +70,21 @@ public class LicenseVerify {
 
             licenseManager = new CustomLicenseManager(licenseParam);
             licenseManager.uninstall();
-            LicenseContent licenseContent = licenseManager.install(new File(licensePath));
+            File file;
+            if(!licensePath.startsWith("C")){
+                Resource resource = new ClassPathResource(licensePath);
+                file  = resource.getFile();
+            }else {
+                file = ResourceUtils.getFile(licensePath);
+            }
+            LicenseContent licenseContent = licenseManager.install(file);
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             installSuccess = true;
             logger.info("------------------------------- 证书安装成功 -------------------------------");
             logger.info(MessageFormat.format("证书有效期：{0} - {1}", format.format(licenseContent.getNotBefore()), format.format(licenseContent.getNotAfter())));
         } catch (Exception e) {
             installSuccess = false;
-            logger.error("------------------------------- 证书安装成功 -------------------------------");
+            logger.error("------------------------------- 证书安装失败 -------------------------------");
             logger.error(e);
         }
     }
@@ -95,12 +105,17 @@ public class LicenseVerify {
     /**
      * 校验License证书
      */
-    public boolean verify() {
+    public boolean verify() throws LicenseContentException {
         try {
             LicenseContent licenseContent = licenseManager.verify();
+            logger.info("----------证书有效----------");
             return true;
         } catch (Exception e) {
-            return false;
+            if(e instanceof LicenseContentException){
+                throw (LicenseContentException)e;
+            }else{
+                return false;
+            }
         }
     }
 

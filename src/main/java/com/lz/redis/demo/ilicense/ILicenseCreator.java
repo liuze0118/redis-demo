@@ -74,9 +74,9 @@ public class ILicenseCreator {
         licenseContent.setInfo(license.getDescription());
 
         //扩展校验，这里可以自定义一些额外的校验信息(也可以用json字符串保存)
-        if (license.getLicenseExtraModel() != null) {
-            licenseContent.setExtra(license.getLicenseExtraModel());
-        }
+//        if (license.getLicenseExtraModel() != null) {
+//            licenseContent.setExtra(license.getLicenseExtraModel());
+//        }
 
         return licenseContent;
     }

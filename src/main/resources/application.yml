@@ -61,8 +61,8 @@ license:
   subject: jiangkanyouyi
   publicAlias: publicCert
   storePass: liu123
-  licensePath: C:\AppData\license\license.lic
-  publicKeysStorePath: C:\AppData\license\publicCerts.store
+  licensePath: license.lic
+  publicKeysStorePath: publicCerts.store
 
 management:
   endpoints:

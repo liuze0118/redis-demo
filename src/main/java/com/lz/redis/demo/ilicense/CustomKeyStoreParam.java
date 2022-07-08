@@ -1,6 +1,8 @@
 package com.lz.redis.demo.ilicense;
 
 import de.schlichtherle.license.AbstractKeyStoreParam;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.util.ResourceUtils;
 
 import java.io.*;
@@ -42,7 +44,13 @@ public class CustomKeyStoreParam extends AbstractKeyStoreParam {
      */
     @Override
     public InputStream getStream() throws IOException {
-        File file = ResourceUtils.getFile(storePath);
+        File file;
+        if(!storePath.startsWith("C")){
+            Resource resource = new ClassPathResource(storePath);
+            file  = resource.getFile();
+        }else {
+            file = ResourceUtils.getFile(storePath);
+        }
         if (file.exists()) {
             return new FileInputStream(file);
         } else {

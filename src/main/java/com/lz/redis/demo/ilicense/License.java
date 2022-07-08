@@ -1,5 +1,7 @@
 package com.lz.redis.demo.ilicense;
 
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,17 +44,19 @@ public class License {
     /**
      * 证书生效时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date issuedTime = new Date();
 
     /**
      * 证书失效时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date expiryTime;
 
     /**
      * 用户类型
      */
-    private String consumerType = "company";
+    private String consumerType = "user";
 
     /**
      * 用户数量
@@ -62,7 +66,7 @@ public class License {
     /**
      * 描述信息
      */
-    private String description = "certs validate params";
+    private String description = "jkyy license授权";
 
     /**
      * 额外的服务器硬件校验信息
@@ -93,7 +97,7 @@ public class License {
         // 设置当前时间
         expiryCalendar.setTime(new Date());
         // 往后延长一年 = 授权一年时间
-        expiryCalendar.add(Calendar.YEAR,1);
+        expiryCalendar.add(Calendar.MINUTE,20);
         param.setExpiryTime(expiryCalendar.getTime());
         // 用户类型
         param.setConsumerType("user");
@@ -102,10 +106,15 @@ public class License {
         // 描述
         param.setDescription("测试");
         log.info("初始化证书创建器");
-        ILicenseCreator ILicenseCreator = new ILicenseCreator(param);
-        // 生成license
-        log.info("开始生成证书");
-        ILicenseCreator.generateLicense();
+        System.out.println(JSON.toJSONString(param));
+//        ILicenseCreator ILicenseCreator = new ILicenseCreator(param);
+//        // 生成license
+//        log.info("开始生成证书");
+//        ILicenseCreator.generateLicense();
+    }
+
+    public static void main(String[] args) {
+        createLicenseCert();
     }
 
 }

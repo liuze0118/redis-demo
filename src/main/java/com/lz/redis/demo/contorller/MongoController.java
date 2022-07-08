@@ -1,6 +1,8 @@
 package com.lz.redis.demo.contorller;
 
+import com.lz.redis.demo.ilicense.LicenseVerify;
 import com.lz.redis.demo.vo.GadgetsMenuDO;
+import de.schlichtherle.license.LicenseContentException;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.CriteriaDefinition;
@@ -23,8 +25,13 @@ public class MongoController {
     @Resource
     private MongoTemplate mongoTemplate;
 
+    @Resource
+    private LicenseVerify licenseVerify;
+
+
     @GetMapping("/test")
-    public ResponseEntity<String> testMongo(){
+    public ResponseEntity<String> testMongo() throws LicenseContentException {
+        licenseVerify.verify();
         Criteria criteria = Criteria.where(GadgetsMenuDO.FIELD_NAME).is("改善目标");
         GadgetsMenuDO one = mongoTemplate.findOne(new Query(criteria), GadgetsMenuDO.class);
         String name = one.getName();
