@@ -25,6 +25,8 @@ public class LicenseController {
 
     //this is ----dev
 
+    //this is delete moment - dev_1
+
     @Resource
     private LicenseVerify licenseVerify;
 
