@@ -11,7 +11,9 @@ import java.util.prefs.Preferences;
 
 public class ILicenseCreator {
 
-    private final static X500Principal DEFAULT_HOLDER_AND_ISSUER = new X500Principal("CN=GENMER, OU=GENM, O=GENM, L=FUZHOU, ST=FUJIAN, C=CHINA");
+    private final static X500Principal DEFAULT_HOLDER = new X500Principal("CN=GENMER, OU=GENM, O=GENM, L=FUZHOU, ST=FUJIAN, C=CHINA");
+
+    private final static X500Principal DEFAULT_ISSUER = new X500Principal("CN=GENMER, OU=GENM, O=GENM, L=BEIJING, ST=BEIJING, C=CHINA");
 
     private static Logger logger = LogManager.getLogger(ILicenseCreator.class);
 
@@ -62,8 +64,8 @@ public class ILicenseCreator {
      */
     private LicenseContent initLicenseContent() {
         LicenseContent licenseContent = new LicenseContent();
-        licenseContent.setHolder(DEFAULT_HOLDER_AND_ISSUER);
-        licenseContent.setIssuer(DEFAULT_HOLDER_AND_ISSUER);
+        licenseContent.setHolder(DEFAULT_HOLDER);
+        licenseContent.setIssuer(DEFAULT_ISSUER);
 
         licenseContent.setSubject(license.getSubject());
         licenseContent.setIssued(license.getIssuedTime());

@@ -3,6 +3,8 @@ package com.lz.redis.demo.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lz.redis.demo.utils.RedisBloomUtils;
+import com.lz.redis.demo.utils.RedisPipelineUtils;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cache.CacheManager;
@@ -23,12 +25,18 @@ import redis.clients.jedis.JedisCluster;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Configuration
 @EnableCaching
 public class RedisConfiguration {
+
+    private static final int NUM_APPROX_ELEMENTS = 3000;
+    private static final double FPP = 0.03;
+    private static final int DAY_SEC = 60 * 60 * 24;
+
 
     @ConfigurationProperties(prefix = "spring.redis")
     public class RedisProperties{
@@ -50,6 +58,15 @@ public class RedisConfiguration {
         return new JedisCluster(hostAndPorts,3000,1500,5,"liuze0118",poolConfig);
     }
 
+    @Bean
+    public RedisPipelineUtils redisPipelineUtils(Map<String,JedisCluster> map){
+        return new RedisPipelineUtils(map);
+    }
+
+    @Bean
+    public RedisBloomUtils redisBloomUtils(JedisCluster jedisCluster,RedisPipelineUtils redisPipelineUtils){
+        return  new RedisBloomUtils(NUM_APPROX_ELEMENTS, FPP, redisPipelineUtils);
+    }
 
 
     @SuppressWarnings("rawtypes")
