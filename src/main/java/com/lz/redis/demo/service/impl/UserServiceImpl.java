@@ -29,7 +29,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
     @Override
     public int addUser(User user) {
-        return userDao.addUser(user);
+        return  userDao.insert(user);
     }
 
     @Override

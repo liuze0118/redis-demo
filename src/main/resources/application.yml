@@ -56,6 +56,12 @@ spring:
   data:
     mongodb:
       uri: mongodb://egd_hcid:lpLcG_HDjNfnOrkJp74j@dev.dbaddr2.jiankangyouyi.com:8509/ego_gw_db?connectTimeoutMS=300000&minPoolSize=0&maxPoolSize=10&maxIdleTimeMS=900000
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  type-handlers-package: com.lz.redis.demo.config
 
 license:
   subject: jiangkanyouyi

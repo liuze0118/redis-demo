@@ -1,11 +1,13 @@
 package com.lz.redis.demo.contorller;
 
+import com.lz.redis.demo.config.IMongoTemplate;
 import com.lz.redis.demo.ilicense.LicenseVerify;
 import com.lz.redis.demo.vo.GadgetsMenuDO;
 import de.schlichtherle.license.LicenseContentException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.CriteriaDefinition;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +24,8 @@ import javax.annotation.Resource;
 @RequestMapping("/mongo")
 public class MongoController {
 
-    @Resource
+    @Autowired
+    @Qualifier(value = "mongoTemplate")
     private MongoTemplate mongoTemplate;
 
     @Resource

@@ -2,6 +2,8 @@ package com.lz.redis.demo.config;
 
 import com.lz.redis.demo.config.converter.BigDecimalToDecimal128Converter;
 import com.lz.redis.demo.config.converter.Decimal128ToBigDecimalConverter;
+import lombok.Getter;
+import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +11,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.mongodb.MongoDatabaseFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
+import org.springframework.data.mongodb.core.SimpleMongoClientDbFactory;
 import org.springframework.data.mongodb.core.convert.DbRefResolver;
 import org.springframework.data.mongodb.core.convert.DefaultDbRefResolver;
 import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
@@ -24,11 +28,17 @@ import java.util.List;
  * @author liuze
  **/
 @Configuration
+@ConfigurationProperties(prefix = "spring.data.mongodb")
+@Getter
+@Setter
 public class MongoConfig{
     private MongoDatabaseFactory factory;
+
+    protected String uri;
+
     @Bean(name = "mongoTemplate")
     public MongoTemplate mongoTemplate(MongoDatabaseFactory factory) {
-        this.factory = factory;
+        this.factory = new SimpleMongoClientDatabaseFactory(this.uri);
         return new IMongoTemplate(factory, this.MappingMongoConverter());
     }
 

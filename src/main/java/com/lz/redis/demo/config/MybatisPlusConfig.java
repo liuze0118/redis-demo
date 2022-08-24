@@ -3,7 +3,6 @@ package com.lz.redis.demo.config;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.mybatis.spring.annotation.MapperScan;
@@ -44,13 +43,6 @@ public class MybatisPlusConfig {
         return paginationInterceptor;
     }
 
-    @Bean
-    public PerformanceInterceptor performanceInterceptor() {
-        PerformanceInterceptor page = new PerformanceInterceptor();
-        page.setWriteInLog(Boolean.TRUE);
-        page.setFormat(true);
-        return page;
-    }
 
     @Component
     @Slf4j

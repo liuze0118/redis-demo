@@ -8,8 +8,16 @@
         <result column="name" property="name" />
         <result column="nick_name" property="nickName" />
         <result column="password" property="password" />
-        <result column="phone_number" property="phoneNumber" />
+        <result column="phone_number" property="phoneNumber" typeHandler="com.lz.redis.demo.config.EncTypeHandler"/>
     </resultMap>
+    <parameterMap id="enc" type="com.lz.redis.demo.vo.User">
+        <parameter  property="id" resultMap="resultMap" />
+        <parameter  property="name" resultMap="resultMap" />
+        <parameter  property="nickName" resultMap="resultMap" />
+        <parameter  property="password" resultMap="resultMap" />
+        <parameter  property="phoneNumber" resultMap="resultMap" typeHandler="com.lz.redis.demo.config.EncTypeHandler"/>
+    </parameterMap>
+
     <insert id="addUser" parameterType="com.lz.redis.demo.vo.User">
         insert into user values(#{id},#{name},#{nickName},#{password},#{phoneNumber})
     </insert>
@@ -33,15 +41,17 @@
     <select id="getUserById" parameterType="integer" resultMap="resultMap">
         select * from user where Id = #{id}
     </select>
-    <select id="selectUserByCondition" resultType="com.lz.redis.demo.vo.User"
-            parameterType="com.lz.redis.demo.vo.User">
+    <select id="selectUserByCondition" resultMap="resultMap" parameterMap="enc">
         select * from user
         <where>
             <if test="name != null and name != ''">
-                name = #{name}
+               and  name = #{name}
             </if>
             <if test="nickName != null and nickName != ''">
                 and nick_name = #{nickName}
+            </if>
+            <if test="phoneNumber != null and phoneNumber != ''">
+                and  phone_number = #{phoneNumber}
             </if>
         </where>
     </select>

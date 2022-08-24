@@ -12,12 +12,15 @@ public class SM4Utils {
 
     //加密为16进制，也可以加密成base64/字节数组
     public static String encryptSm4(String plaintext) {
-        return sm4.encryptBase64(plaintext);
+        String encStr = sm4.encryptBase64(plaintext);
+        encStr = "ENC("+encStr+")";
+        return encStr;
     }
 
     //解密
-    public static String decryptSm4(String ciphertext) {
-        return sm4.decryptStr(ciphertext);
+    public static String decryptSm4(String ciphering) {
+        ciphering = ciphering.substring(4,ciphering.length()-1);
+        return sm4.decryptStr(ciphering);
     }
 
     public static void main(String[] args) {

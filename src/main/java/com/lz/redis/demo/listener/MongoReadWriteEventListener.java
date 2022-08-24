@@ -1,9 +1,11 @@
 package com.lz.redis.demo.listener;
 
+
 import com.lz.redis.demo.annotatiion.MongodbEnc;
 import com.lz.redis.demo.utils.SM4Utils;
-import io.micrometer.core.instrument.util.StringUtils;
+import com.lz.redis.demo.vo.BaseMongoEntity;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.bson.Document;
 import org.springframework.data.mongodb.core.mapping.event.*;
 import org.springframework.stereotype.Component;
@@ -15,43 +17,59 @@ public class MongoReadWriteEventListener extends AbstractMongoEventListener<Obje
 
     @Override
     public void onBeforeConvert(BeforeConvertEvent<Object> event) {
-        if (event.getSource() != null) {
-            ReflectionUtils.doWithFields(event.getSource().getClass(), field -> {
-                // @MongodbEnc注解字段，写库前做SM4加密
-                if (field.isAnnotationPresent(MongodbEnc.class)) {
-                    ReflectionUtils.makeAccessible(field);
-                    Object value = field.get(event.getSource());
-                    if (value != null) {
-                        String ciphertext = (String) value;
-                        if (StringUtils.isNotBlank(ciphertext)) {
-                            String plainText = "123456";
-                            log.info("解密前：{}，解密后：{}", ciphertext, plainText);
-                            field.set(event.getSource(), plainText);
-                        }
+        if (event.getSource() != null && event.getSource().getClass().isAnnotationPresent(MongodbEnc.class)) {
+            doEnc(event.getSource());
+        }
+    }
+
+    private void doEnc(Object source) {
+        ReflectionUtils.doWithFields(source.getClass(), field -> {
+            // @MongodbEnc注解字段，写库前做SM4加密
+            ReflectionUtils.makeAccessible(field);
+            Object value = field.get(source);
+            if (field.isAnnotationPresent(MongodbEnc.class)) {
+                if (value != null) {
+                    String cipher = (String) value;
+                    if (StringUtils.isNotBlank(cipher)) {
+                        String plainText = SM4Utils.encryptSm4(cipher);
+                        log.info("加密前：{}，加密后：{}", cipher, plainText);
+                        field.set(source, plainText);
                     }
                 }
-            });
-        }
+            }else if (value != null && field.getType().getSuperclass() == BaseMongoEntity.class && field.getType().isAnnotationPresent(MongodbEnc.class)){
+                doEnc(value);
+            }
+        });
     }
 
     @Override
     public void onAfterConvert(AfterConvertEvent<Object> event) {
         if (event.getSource() != null && event.getSource().getClass().isAnnotationPresent(MongodbEnc.class)) {
-            ReflectionUtils.doWithFields(event.getSource().getClass(), field -> {
-                // @MongodbEnc注解字段，读库后做SM4解密
-                if (field.isAnnotationPresent(MongodbEnc.class)) {
-                    ReflectionUtils.makeAccessible(field);
-                    Object value = field.get(event.getSource());
-                    if (value != null) {
+           doDec(event.getSource());
+        }
+    }
+
+    private void doDec(Object source) {
+        ReflectionUtils.doWithFields(source.getClass(), field -> {
+            // @MongodbEnc注解字段，读库后做SM4解密
+            ReflectionUtils.makeAccessible(field);
+            Object value = field.get(source);
+            if (field.isAnnotationPresent(MongodbEnc.class)) {
+                if (value != null) {
+                    String cipher = (String) value;
+                    if (StringUtils.isNotBlank(cipher)) {
                         String plainText = (String) value;
                         String cipherText = SM4Utils.decryptSm4(plainText);
                         log.info("解密前:{}，解密后:{}", plainText, cipherText);
-                        field.set(event.getSource(), cipherText);
+                        field.set(source, cipherText);
                     }
                 }
-            });
-        }
+            }else if (value != null && field.getType().getSuperclass() == BaseMongoEntity.class && field.getType().isAnnotationPresent(MongodbEnc.class)){
+                doDec(value);
+            }
+        });
     }
+
 
     @Override
     public void onBeforeSave(BeforeSaveEvent<Object> event) {

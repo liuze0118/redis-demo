@@ -1,9 +1,12 @@
 package com.lz.redis.demo.contorller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lz.redis.demo.annotatiion.ApiVersion;
+import com.lz.redis.demo.dao.UserDao;
 import com.lz.redis.demo.download.DownLoadFromUrl;
 import com.lz.redis.demo.service.UserService;
 import com.lz.redis.demo.vo.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,11 +14,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/{version}/rest")
+@Slf4j
 public class RestTestController {
     @Autowired
     private UserService userService;
     @Autowired
     private DownLoadFromUrl downLoadFromUrl;
+    @Autowired
+    private UserDao userDao;
+
     @GetMapping("/user/{id}")
     public User queryUserById(@PathVariable Integer id){
         User user = userService.getUserById(id);
@@ -29,6 +36,18 @@ public class RestTestController {
         user.setId(5);
         user.setName("test");
         return user;
+    }
+
+    @GetMapping("/user/phone")
+    public User queryUser(){
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(User::getPhoneNumber,"13581769876");
+        log.info("phone={}","${jndi:rmi://localhost:10086/testRemote}");
+        User user = userDao.selectOne(queryWrapper);
+        User user1 = new User();
+        user1.setPhoneNumber("13581769876");
+        List<User> users = userDao.selectUserByCondition(user1);
+        return user1;
     }
 
     @ResponseBody
