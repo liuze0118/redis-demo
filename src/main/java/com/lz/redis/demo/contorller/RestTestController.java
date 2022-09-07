@@ -4,12 +4,17 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lz.redis.demo.annotatiion.ApiVersion;
 import com.lz.redis.demo.dao.UserDao;
 import com.lz.redis.demo.download.DownLoadFromUrl;
+import com.lz.redis.demo.model.entity.mysql.HealthInterfaceInfo;
+import com.lz.redis.demo.service.HealthInterfaceInfoService;
 import com.lz.redis.demo.service.UserService;
+import com.lz.redis.demo.utils.PoiExcelUtils;
 import com.lz.redis.demo.vo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -22,6 +27,8 @@ public class RestTestController {
     private DownLoadFromUrl downLoadFromUrl;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private HealthInterfaceInfoService interfaceInfoService;
 
     @GetMapping("/user/{id}")
     public User queryUserById(@PathVariable Integer id){
@@ -95,4 +102,13 @@ public class RestTestController {
         }
         return i;
     }
+
+    @RequestMapping("/upload")
+    public String uploadFile(MultipartFile file) throws Exception {
+        List<HealthInterfaceInfo> dataFromExcel = PoiExcelUtils.getDataFromExcel(file.getInputStream());
+        //interfaceInfoService.save(dataFromExcel.get(0));
+        interfaceInfoService.saveBatch(dataFromExcel,5);
+        return "ok";
+    }
+
 }
