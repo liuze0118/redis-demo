@@ -17,6 +17,7 @@ public class MongoReadWriteEventListener extends AbstractMongoEventListener<Obje
 
     @Override
     public void onBeforeConvert(BeforeConvertEvent<Object> event) {
+        Document document = event.getDocument();
         if (event.getSource() != null && event.getSource().getClass().isAnnotationPresent(MongodbEnc.class)) {
             doEnc(event.getSource());
         }
@@ -28,11 +29,18 @@ public class MongoReadWriteEventListener extends AbstractMongoEventListener<Obje
             ReflectionUtils.makeAccessible(field);
             Object value = field.get(source);
             if (field.isAnnotationPresent(MongodbEnc.class)) {
+                MongodbEnc annotation = field.getAnnotation(MongodbEnc.class);
                 if (value != null) {
-                    String cipher = (String) value;
+                    String cipher;
+                    if(annotation.javaType().equals("BigDecimal")){
+                        cipher  = value.toString();
+                    }else{
+                        cipher = (String) value;
+                    }
                     if (StringUtils.isNotBlank(cipher)) {
                         String plainText = SM4Utils.encryptSm4(cipher);
                         log.info("加密前：{}，加密后：{}", cipher, plainText);
+                        Class<?> type = field.getType();
                         field.set(source, plainText);
                     }
                 }

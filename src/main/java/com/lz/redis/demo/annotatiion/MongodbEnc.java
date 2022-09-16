@@ -11,4 +11,5 @@ public @interface MongodbEnc {
     boolean enableDocument() default true;
     String tableFiled() default "";
     String encType() default "SM4";
+    String javaType() default "String";
 }

@@ -79,3 +79,11 @@ management:
   endpoint:
     self-registry:
       enable: true
+
+java:
+  home: ${JAVA_HOME}
+
+mongodb.encrypt:
+  keys:
+    - version: 1
+      key: hqHKBLV83LpCqzKpf8OvutbCs+O5wX5BPu3btWpEvXA=

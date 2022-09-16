@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
@@ -48,16 +49,22 @@ class RedisDemoApplicationTests {
     @Test
     public void testENc(){
 
-        List<TestRoleDO> all = testRoleRepository.findAll(TestRoleDO.class);
-        System.out.println(all.size());
+        TestChildDO childDO = TestChildDO.builder().name("Test-Child-9").build();
+        TestMenuDO testMenuDO1 = TestMenuDO.builder().name("测试菜单-9").childDO(childDO).build();
+        TestRoleDO roleDO1 = TestRoleDO.builder().auth(9).val(BigDecimal.valueOf(9)).roleName("测试角色-9").menuDO(testMenuDO1).build();
+        testRoleRepository.save(roleDO1);
+//
+//        List<TestRoleDO> all = testRoleRepository.findAll(TestRoleDO.class);
+//        System.out.println(all.size());
 
-        Criteria criteria0 = Criteria.where(TestRoleDO.FIELD_NAME).is("测试角色-3");
+        Criteria criteria0 = Criteria.where(TestRoleDO.FIELD_NAME).is("测试角色-9");
+        //Criteria criteria0 = Criteria.where(TestRoleDO.FIELD_VAL).is(BigDecimal.valueOf(9));
         List<TestRoleDO> testRoleDOS0 = testRoleRepository.find(new Query(criteria0), TestRoleDO.class);
         System.out.println(testRoleDOS0.size());
-
-        Criteria criteria = Criteria.where(TestRoleDO.FIELD_MENUDO_CHILD_NAME).is("Test-Child-4");
-        List<TestRoleDO> testRoleDOS = testRoleRepository.find(new Query(criteria), TestRoleDO.class);
-        System.out.println(testRoleDOS.size());
+//
+//        Criteria criteria = Criteria.where(TestRoleDO.FIELD_MENUDO_CHILD_NAME).is("Test-Child-4");
+//        List<TestRoleDO> testRoleDOS = testRoleRepository.find(new Query(criteria), TestRoleDO.class);
+//        System.out.println(testRoleDOS.size());
         System.out.println("-------");
     }
 

@@ -230,6 +230,12 @@
             <version>4.0.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.bol</groupId>
+            <artifactId>spring-data-mongodb-encrypt</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+
         <!-- 读取大量excel数据时使用 -->
         <dependency>
             <groupId>com.monitorjbl</groupId>

@@ -11,6 +11,7 @@ import com.lz.redis.demo.utils.PoiExcelUtils;
 import com.lz.redis.demo.vo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,6 +30,8 @@ public class RestTestController {
     private UserDao userDao;
     @Autowired
     private HealthInterfaceInfoService interfaceInfoService;
+    @Value("${java.home}")
+    private String javahome;
 
     @GetMapping("/user/{id}")
     public User queryUserById(@PathVariable Integer id){

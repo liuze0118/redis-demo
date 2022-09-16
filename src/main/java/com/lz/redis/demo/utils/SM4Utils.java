@@ -24,15 +24,11 @@ public class SM4Utils {
     }
 
     public static void main(String[] args) {
-        String change = "改善目标";
-        String target = "高蛋白";
-        String add = "便秘";
-        String tarStr = encryptSm4(target);
-        String addStr = encryptSm4(add);
+        String change = "指以自行车做为工具比赛的体育运动。1896年第一届奥林匹克运动会上被列为正式比赛项目。平时骑自行车可以燃脂，增强腿部力量和提高心肺功能。";
+
         String changeStr = encryptSm4(change);
 
-        System.out.println("高蛋白------"+tarStr);
-        System.out.println("便秘------"+addStr);
+
         System.out.println("改善目标------"+changeStr);
     }
 
