@@ -86,6 +86,9 @@ public class IMongoTemplate extends MongoTemplate {
     }
 
     private Query encodeParamRecursion(String preKey, Query query, Class entityClass){
+        if(null == entityClass){
+            return query;
+        }
         if(entityClass.isAnnotationPresent(MongodbEnc.class)){
             Field[] fields = entityClass.getDeclaredFields();
             List<Field> fieldList = Arrays.asList(fields);

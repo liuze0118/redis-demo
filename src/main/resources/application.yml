@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8801
 
 xxl:
   job:
@@ -55,7 +55,8 @@ spring:
     proxy-target-class: false
   data:
     mongodb:
-      uri: mongodb://egd_hcid:lpLcG_HDjNfnOrkJp74j@dev.dbaddr2.jiankangyouyi.com:8509/ego_gw_db?connectTimeoutMS=300000&minPoolSize=0&maxPoolSize=10&maxIdleTimeMS=900000
+      uri: mongodb://egd_hcid_new:adWRvM7hBfVYYH71W37T+@dev.dbaddr2.jiankangyouyi.com:8509/ego_gw_db?connectTimeoutMS=300000&minPoolSize=0&maxPoolSize=10&maxIdleTimeMS=900000
+#      uri: mongodb://jy_self:G20MaW1ct%5EeBC8Pfg2QN@prod.dbaddr5.jiankangyouyi.com:8635/jy_db?connectTimeoutMS=300000&minPoolSize=0&maxPoolSize=10&maxIdleTimeMS=900000
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
