@@ -1,8 +1,10 @@
-package com.lz.redis.demo.contorller;
+package com.lz.redis.demo.controller;
 
 import com.lz.redis.demo.service.RedisService;
+import com.lz.redis.demo.utils.RedisBloomUtils;
 import com.lz.redis.demo.utils.RedisPipelineUtils;
 import com.lz.redis.demo.vo.Good;
+import org.redisson.api.RBloomFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import redis.clients.jedis.Jedis;
@@ -22,6 +24,8 @@ public class RedisController {
     private RedisPipelineUtils pipelineUtils;
     @Autowired
     private RedisService redisService;
+    @Autowired
+    private RBloomFilter bloomUtils;
     @GetMapping("/scard")
     public String scard(){
         long[] total = {0};
@@ -120,4 +124,10 @@ public class RedisController {
         return good.getName() ;
     }
 
+    @PutMapping("/bloom/check/{key}")
+    @ResponseBody
+    public boolean checkBloomKey(@PathVariable String key){
+        boolean mayExist = bloomUtils.contains(key);
+        return mayExist;
+    }
 }

@@ -1,4 +1,4 @@
-package com.lz.redis.demo.contorller;
+package com.lz.redis.demo.controller;
 
 import com.lz.redis.demo.repository.EsGoodRepository;
 import com.lz.redis.demo.repository.GoodRepository;
@@ -6,6 +6,7 @@ import com.lz.redis.demo.vo.Good;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.support.WriteRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.naming.directory.SearchResult;
 import java.io.IOException;
 import java.util.*;
 
@@ -44,18 +46,24 @@ public class EsController {
         String returnStr = null;
         Map<String,String> sourceMap = new HashMap<>();
         sourceMap.put("feature","high-level-rest-client");
-        IndexRequest request = new IndexRequest("test_index")
+        IndexRequest request = new IndexRequest("yi_yun_db.food3.v4.taikang")
                 .id(UUID.randomUUID().toString())
                 .source(sourceMap)
                 .setRefreshPolicy(WriteRequest.RefreshPolicy.IMMEDIATE);
         try {
             IndexResponse response  = highLevelClient.index(request, RequestOptions.DEFAULT);
+            SearchRequest sq = new SearchRequest();
+            sq.indices("yi_yun_db.food3.v4.taikang");
+
             returnStr = response.getIndex();
         } catch (IOException e) {
             log.error("查询es索引异常",e);
         }
         return returnStr;
     }
+
+
+
     @GetMapping("/create/{index}")
     public String createIndex(@PathVariable String index){
         String returnStr = null;

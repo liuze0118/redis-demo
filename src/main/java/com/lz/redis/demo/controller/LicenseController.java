@@ -1,4 +1,4 @@
-package com.lz.redis.demo.contorller;
+package com.lz.redis.demo.controller;
 
 import com.lz.redis.demo.ilicense.ILicenseCreator;
 import com.lz.redis.demo.ilicense.License;

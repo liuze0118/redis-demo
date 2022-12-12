@@ -37,15 +37,19 @@ class RedisDemoApplicationTests {
     @Test
     public void cacheThreadTest(){
         CountDownLatch countDownLatch = new CountDownLatch(10);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 11; i++) {
             new Thread(()->{
                 try {
                     countDownLatch.await();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Good good = redisService.testCache("test");
-                System.out.println(good.getName());
+                TestChildDO childDO = TestChildDO.builder().name("Test-Child-10").build();
+                TestMenuDO testMenuDO1 = TestMenuDO.builder().name("测试菜单-10").childDO(childDO).build();
+                TestRoleDO roleDO1 = TestRoleDO.builder().auth(10).val(BigDecimal.valueOf(10)).roleName("测试角色-10").menuDO(testMenuDO1).build();
+                testRoleRepository.save(roleDO1);
+//                Good good = redisService.testCache("test");
+//                System.out.println(good.getName());
             }).start();
             countDownLatch.countDown();
         }

@@ -1,14 +1,10 @@
-package com.lz.redis.demo.contorller;
+package com.lz.redis.demo.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lz.redis.demo.annotatiion.ApiVersion;
 import com.lz.redis.demo.dao.UserDao;
 import com.lz.redis.demo.download.DownLoadFromUrl;
-import com.lz.redis.demo.model.dto.ThirdPartyFoodMatchCondition;
-import com.lz.redis.demo.model.dto.ThirdPartyFoodMatchRequestDTO;
 import com.lz.redis.demo.model.entity.mysql.HealthInterfaceInfo;
-import com.lz.redis.demo.model.entity.mysql.MatchResult;
 import com.lz.redis.demo.service.HealthInterfaceInfoService;
 import com.lz.redis.demo.service.UserService;
 import com.lz.redis.demo.service.impl.MatchResultServiceImpl;
@@ -18,13 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @RestController
 @RequestMapping("/{version}/rest")
