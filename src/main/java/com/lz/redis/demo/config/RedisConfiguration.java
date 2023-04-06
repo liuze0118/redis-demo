@@ -55,7 +55,7 @@ public class RedisConfiguration {
         poolConfig.setMaxIdle(50);
         poolConfig.setMaxTotal(150);
         poolConfig.setMinIdle(30);
-        return new JedisCluster(hostAndPorts,3000,1500,5,"liuze0118",poolConfig);
+        return new JedisCluster(hostAndPorts,3000,1500,5,"xxxx",poolConfig);
     }
 
     @Bean

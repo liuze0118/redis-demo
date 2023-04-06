@@ -53,7 +53,7 @@ public class CanalConfig {
         /**
          * 密码
          */
-        private  String PASSWORD = "4ACFE3202A5FF5CF467898FC58AAB1D615029441";
+        private  String PASSWORD = "000000000000000000";
 
         public void initCanal(){
             // 创建单链接的客户端链接

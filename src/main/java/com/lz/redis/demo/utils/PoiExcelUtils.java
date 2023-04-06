@@ -1,5 +1,6 @@
 package com.lz.redis.demo.utils;
 
+import com.lz.redis.demo.model.entity.mysql.DataSence;
 import com.lz.redis.demo.model.entity.mysql.HealthInterfaceInfo;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.openxml4j.util.ZipSecureFile;
@@ -8,8 +9,10 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import javax.xml.crypto.Data;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -63,6 +66,37 @@ public class PoiExcelUtils {
             }
         }
 
+        return interfaceInfoList;
+    }
+    public static List<DataSence> getDataSenceFromExcel(InputStream inputStream) throws Exception {
+        ZipSecureFile.setMinInflateRatio(-1.0d);
+        Workbook workBook = new XSSFWorkbook(inputStream);
+        List<DataSence> interfaceInfoList = new ArrayList<>();
+        HashMap<String, Integer> vlMap = new HashMap<>();
+        for (int j = 0; j < workBook.getNumberOfSheets(); j++) {
+            Sheet sheet = workBook.getSheetAt(0);
+            Row rowHead = sheet.getRow(j);
+            if (rowHead.getPhysicalNumberOfCells() < 1) {
+                throw new Exception("表头错误");
+            }
+            String module = "";
+            String serviceName = "";
+            String version = "";
+            for (int i = 1; i < sheet.getLastRowNum(); i++) {
+                Row row = sheet.getRow(i);
+                String key = row.getCell(0)+"";
+                if(vlMap.containsKey(key)){
+                    continue;
+                }else{
+                    vlMap.put(key,i);
+                    DataSence dataSence = DataSence.builder().id(i)
+                            .keyName(row.getCell(0)+"").build();
+
+                    interfaceInfoList.add(dataSence);
+                }
+
+            }
+        }
         return interfaceInfoList;
     }
 }

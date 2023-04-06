@@ -286,6 +286,12 @@
             <version>1.18.22</version>
             <scope>provided</scope>
         </dependency>
+        <!-- 腾讯云OSS -->
+        <dependency>
+            <groupId>com.qcloud</groupId>
+            <artifactId>cos_api</artifactId>
+            <version>5.6.72</version>
+        </dependency>
         <!-- 读取大量excel数据时使用 -->
         <dependency>
             <groupId>com.monitorjbl</groupId>
