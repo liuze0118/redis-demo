@@ -12,7 +12,6 @@ public class BinarySearchDemo {
 
         while (left <= right) {
             int mid = left + (right - left) / 2;
-            Number
             if (arr[mid] == target) {
                 return mid; // 找到目标值，返回索引
             } else if (arr[mid] < target) {
