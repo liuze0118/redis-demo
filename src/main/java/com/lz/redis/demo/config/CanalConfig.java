@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * @author : liuze
  * @date: 2022/11/4 18:19
  **/
-@Configuration
+//@Configuration
 public class CanalConfig {
 
     @Bean

@@ -7,7 +7,7 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 
 
 @SpringBootApplication
-@EnableElasticsearchRepositories(basePackages = {"com.lz.redis.demo.repository"})
+//@EnableElasticsearchRepositories(basePackages = {"com.lz.redis.demo.repository"})
 @MapperScan(basePackages = {"com.lz.redis.demo.dao"})
 public class RedisDemoApplication {
 

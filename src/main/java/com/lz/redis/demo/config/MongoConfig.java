@@ -27,8 +27,8 @@ import java.util.List;
  *
  * @author liuze
  **/
-@Configuration
-@ConfigurationProperties(prefix = "spring.data.mongodb")
+//@Configuration
+//@ConfigurationProperties(prefix = "spring.data.mongodb")
 @Getter
 @Setter
 public class MongoConfig{

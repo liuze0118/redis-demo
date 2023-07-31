@@ -55,7 +55,7 @@ public class RedisConfiguration {
         poolConfig.setMaxIdle(50);
         poolConfig.setMaxTotal(150);
         poolConfig.setMinIdle(30);
-        return new JedisCluster(hostAndPorts,3000,1500,5,"xxxx",poolConfig);
+        return new JedisCluster(hostAndPorts,3000,1500,5,"liuze0118",poolConfig);
     }
 
     @Bean
@@ -63,10 +63,10 @@ public class RedisConfiguration {
         return new RedisPipelineUtils(map);
     }
 
-    @Bean
-    public RedisBloomUtils redisBloomUtils(JedisCluster jedisCluster,RedisPipelineUtils redisPipelineUtils){
-        return  new RedisBloomUtils(NUM_APPROX_ELEMENTS, FPP, redisPipelineUtils);
-    }
+//    @Bean
+//    public RedisBloomUtils redisBloomUtils(JedisCluster jedisCluster,RedisPipelineUtils redisPipelineUtils){
+//        return  new RedisBloomUtils(NUM_APPROX_ELEMENTS, FPP, redisPipelineUtils);
+//    }
 
 
     @SuppressWarnings("rawtypes")

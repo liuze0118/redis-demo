@@ -99,7 +99,7 @@
             <AppenderRef ref="Console"/>
         </Logger>
 
-        <root level="debug">
+        <root level="info">
             <appender-ref ref="Console"/>
 <!--            <appender-ref ref="RollingFileDebug"/>-->
 <!--            <appender-ref ref="RollingFileInfo"/>-->

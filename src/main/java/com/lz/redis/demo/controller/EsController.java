@@ -25,12 +25,12 @@ import javax.naming.directory.SearchResult;
 import java.io.IOException;
 import java.util.*;
 
-@RestController
-@RequestMapping("/es")
+//@RestController
+//@RequestMapping("/es")
 @Slf4j
 public class EsController {
-    @Autowired
-    private RestHighLevelClient highLevelClient;
+    //@Autowired
+    //private RestHighLevelClient highLevelClient;
 
     @Autowired
     private GoodRepository goodRepository;
@@ -50,15 +50,15 @@ public class EsController {
                 .id(UUID.randomUUID().toString())
                 .source(sourceMap)
                 .setRefreshPolicy(WriteRequest.RefreshPolicy.IMMEDIATE);
-        try {
-            IndexResponse response  = highLevelClient.index(request, RequestOptions.DEFAULT);
-            SearchRequest sq = new SearchRequest();
-            sq.indices("yi_yun_db.food3.v4.taikang");
-
-            returnStr = response.getIndex();
-        } catch (IOException e) {
-            log.error("查询es索引异常",e);
-        }
+//        try {
+//            IndexResponse response  = highLevelClient.index(request, RequestOptions.DEFAULT);
+//            SearchRequest sq = new SearchRequest();
+//            sq.indices("yi_yun_db.food3.v4.taikang");
+//
+//            returnStr = response.getIndex();
+//        } catch (IOException e) {
+//            log.error("查询es索引异常",e);
+//        }
         return returnStr;
     }
 

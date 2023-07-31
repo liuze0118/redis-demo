@@ -14,10 +14,10 @@ public interface GoodRepository extends CurdRepository<Good,Long> {
 
     List<Good> findGoodsByName(String name);
 
-    @Highlight(fields = {
-            @HighlightField(name = "brandName"),
-            @HighlightField(name = "name")
-    })
+//    @Highlight(fields = {
+//            @HighlightField(name = "brandName"),
+//            @HighlightField(name = "name")
+//    })
     List<SearchHit<Good>> findGoodsByNameOrBrandName(String name, String brandName);
 
     Page<Good> findGoodsByBrandName(String brandName,Pageable pageable);

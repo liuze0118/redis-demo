@@ -9,16 +9,17 @@ import org.springframework.data.elasticsearch.client.RestClients;
 import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfiguration;
 
 
-@Configuration
+//@Configuration
 public class EsRestClientConfig extends AbstractElasticsearchConfiguration {
     @Override
     @Bean
     public RestHighLevelClient elasticsearchClient() {
         final ClientConfiguration clientConfiguration = ClientConfiguration.builder()
-                .connectedTo("47.94xxxx:9200")
-                .withBasicAuth("xxxx","xxxxx")
+                .connectedTo("47.94.237.238:9200")
+                .withBasicAuth("elastic","123456")
                 .build();
-        return RestClients.create(clientConfiguration).rest();
+        //return RestClients.create(clientConfiguration).rest();
+        return null;
     }
 
     @Bean

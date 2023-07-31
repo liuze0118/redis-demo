@@ -1,0 +1,14 @@
+[
+  {
+    "ruleType": "test-1",
+    "ruleName": "Add",
+    "ruleExpression": "add(x,y)",
+    "hitDesc": "ADD"
+  },
+  {
+    "ruleType": "test-2",
+    "ruleName": "Sub",
+    "ruleExpression": "sub(x,y)",
+    "hitDesc": "SUB"
+  }
+]

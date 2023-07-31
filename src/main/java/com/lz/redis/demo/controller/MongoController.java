@@ -37,7 +37,7 @@ import java.util.concurrent.CountDownLatch;
  * @date: 2022/6/29 18:11
  **/
 @Slf4j
-@RestController
+//@RestController
 @RequestMapping("/mongo")
 public class MongoController {
 

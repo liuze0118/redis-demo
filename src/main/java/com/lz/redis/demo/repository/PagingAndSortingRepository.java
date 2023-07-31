@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.NoRepositoryBean;
 
-@NoRepositoryBean
+//@NoRepositoryBean
 public interface PagingAndSortingRepository<T,ID> extends CurdRepository<T,ID> {
     Iterable<T> findAll(Sort sort);
 

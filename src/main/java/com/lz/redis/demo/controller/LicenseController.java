@@ -19,7 +19,7 @@ import java.util.Map;
  * @date: 2022/6/30 15:14
  **/
 @Slf4j
-@RestController
+//@RestController
 @RequestMapping("/license")
 public class LicenseController {
 

@@ -20,8 +20,8 @@ public class RedissonConfig {
     public RedissonClient redissonClient(){
         Config config = new Config();
         ClusterServersConfig clusterServersConfig = config.useClusterServers();
-        clusterServersConfig.addNodeAddress("redis://121.36.40.221:6371","redis://121.36.40.221:6372","121.36.40.221:6373","121.36.40.221:6374","121.36.40.221:6375","121.36.40.221:6376");
-        clusterServersConfig.setPassword("123456");
+        clusterServersConfig.addNodeAddress("redis://47.94.237.238:7001","redis://47.94.237.238:7002","redis://47.94.237.238:7003","redis://47.94.237.238:7004","redis://47.94.237.238:7005","redis://47.94.237.238:7006");
+        clusterServersConfig.setPassword("liuze0118");
         return Redisson.create(config);
     }
 
